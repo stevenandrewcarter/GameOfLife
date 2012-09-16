@@ -38,12 +38,12 @@ namespace GameOfLife.Engine {
     /// Seeds the world with the Cells
     /// </summary>
     /// <param name="lifeChance">Chance that the cell will be alive</param>
-    public void Seed(int lifeChance) {
+    public void Seed(int lifeChance, int cellWidth, int cellHeight) {
       Random rnd = new Random(Environment.TickCount);
       // Generate the cells
       for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-          CurrentWorld[i, j] = new Cell(i, j, 10) { Alive = rnd.Next(100) < lifeChance };
+          CurrentWorld[i, j] = new Cell(i, j, cellWidth, cellHeight, 10) { Alive = rnd.Next(100) < lifeChance };
         }
       }
       // Detect the neighbours

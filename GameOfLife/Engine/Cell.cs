@@ -5,22 +5,26 @@ namespace GameOfLife.Engine {
   public class Cell {
     #region Private Variables
     private int x;
-    private int y;
+    private int y;    
     #endregion
 
     #region Constructor
 
-    public Cell(int xPos, int yPos, int offset) {
+    public Cell(int xPos, int yPos, int aWidth, int aHeight, int offset) {
+      Width = aWidth;
+      Height = aHeight;
       Neighbours = new List<Cell>();
       x = xPos;
       y = yPos;
-      CellGraphic = new Rectangle(x * offset, y * offset, 10, 10);
+      CellGraphic = new Rectangle(x * Width, y * Height, Width, Height);
     }
 
     #endregion
 
     #region Properties
 
+    public int Width { get; private set; }
+    public int Height { get; private set; }
     public bool Alive { get; set; }
     public List<Cell> Neighbours { get; set; }
     public Rectangle CellGraphic { get; set; }
@@ -30,7 +34,7 @@ namespace GameOfLife.Engine {
     #region Public Methods
 
     public Cell NextGeneration() {
-      var nextGeneration = new Cell(x, y, 10) { Neighbours = Neighbours };
+      var nextGeneration = new Cell(x, y, Width, Height, 10) { Neighbours = Neighbours };
       int liveNeighbours = 0;
       foreach (Cell neighbour in Neighbours) {
         if (neighbour.Alive) {

@@ -13,14 +13,16 @@ namespace GameOfLife {
     private World world;
     private int generation;
     private bool invokeClose;
+    private int worldSize;
     #endregion
 
     public FrmMain() {
+      worldSize = 150;
       InitializeComponent();      
       this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
       this.UpdateStyles();
-      world = new World(45, 45);
-      world.Seed(25);
+      world = new World(worldSize, worldSize);
+      world.Seed(25, pnlMain.Width / worldSize, pnlMain.Height / worldSize);
       generation = 0;
       bgWorker.DoWork += bgWorker_DoWork;
       bgWorker.WorkerSupportsCancellation = true;
@@ -40,7 +42,7 @@ namespace GameOfLife {
         Bitmap BackBuffer = new Bitmap(this.ClientSize.Width, this.ClientSize.Height);
         Graphics g = Graphics.FromImage(BackBuffer);
         world.Evolve(g);
-        Graphics Viewable = this.CreateGraphics();
+        Graphics Viewable = pnlMain.CreateGraphics();
         Viewable.DrawImageUnscaled(BackBuffer, 0, 0);
         if (InvokeRequired && !invokeClose) {
           try {
