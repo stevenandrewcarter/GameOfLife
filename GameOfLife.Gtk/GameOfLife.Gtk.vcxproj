@@ -70,10 +70,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GoLMain.cpp" />
+    <ClCompile Include="Cell.cpp" />
+    <ClCompile Include="FrmMain.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cell.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="GameOfLife.Gtk.rc" />
