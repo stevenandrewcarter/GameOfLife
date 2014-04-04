@@ -39,8 +39,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\gtk\lib\gtk-2.0\include;C:\gtk\lib\glib-2.0\include;C:\gtk\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\gtk\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\libs\pthread\include;C:\gtk\lib\gtk-2.0\include;C:\gtk\lib\glib-2.0\include;C:\gtk\include;D:\libs\pthread\lib\x86;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\libs\pthread\lib\x86;C:\gtk\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
