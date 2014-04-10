@@ -4,7 +4,7 @@
 GtkWidget* window;
 GtkWidget* darea; 
 World* world;
-//the global pixmap that will serve as our buffer
+// The global pixmap that will serve as our buffer
 static GdkPixmap *pixmap = NULL;
 
 static gboolean on_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
