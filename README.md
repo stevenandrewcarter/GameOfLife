@@ -3,6 +3,15 @@ Game of Life
 Typical Conway's Game of Life simulation written in C# and C++. The C# version uses the standard .Net libraries, while the C++ version 
 uses the GTK+ resource instead.
 
+C# Installation
+---------------
+Nothing, just run it from the .Net Framework (Unless you don't have that)
+
+C++ Installation
+----------------
+* Install the GTK+ Libraries
+* Install the PThread Libraries
+
 Resources
 ---------
 [Conway's Game of Life](http://en.wikipedia.org/wiki/Conway's_Game_of_Life)
@@ -12,6 +21,8 @@ GTK Resources
 Specific resources for compiling and running GTK+ applications under visual studio and windows
 
 [GTK+](http://www.gtk.org/download/win32.php)
+
+[GTK+ Animation](http://cairographics.org/threaded_animation_with_cairo/)
 
 [?](http://www.tarnyko.net/en/?q=node/22)
 

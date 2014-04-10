@@ -68,13 +68,13 @@ void World::Evolve(cairo_t* cr)
     for (int j = 0; j < width; j++) {
       nextWorld[i][j] = currentWorld[i][j].NextGeneration();
     }
-  }
-  // CurrentWorld = NextWorld;
+  }        
   aliveCells = 0;
   for (int i = 0; i < height; i++) {
     for (int j = 0; j < width; j++) {
-      Cell cell = currentWorld[i][j];
-      // DetectNeighbours(&cell, i, j);
+      currentWorld[i][j] = nextWorld[i][j];
+      Cell cell = nextWorld[i][j];
+      DetectNeighbours(&cell, i, j);
       if (cell.IsAlive()) 
       { 
         aliveCells++;         
@@ -85,9 +85,10 @@ void World::Evolve(cairo_t* cr)
         cairo_set_source_rgb(cr, 0, 0, 0);
       }      
       cairo_rectangle(cr, cell.GetX() * cell.GetWidth(), cell.GetY() * cell.GetHeight(), cell.GetWidth(), cell.GetHeight()); 
-      cairo_fill (cr);
+      cairo_fill(cr);
+      currentWorld[i][j] = nextWorld[i][j];
     }
-  }      
+  }  
 }
 
 void World::DetectNeighbours(Cell* cell, int xPos, int yPos)
