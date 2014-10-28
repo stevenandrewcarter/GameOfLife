@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Conway's Game Of Life (With Phaser)</title>
+  <script type="text/javascript" src="js/phaser.min.js"></script>
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+<script type="text/javascript">
+  var cellSize = 8;
+  var worldSize = 100;
+  var game = new Phaser.Game(cellSize * worldSize, cellSize * worldSize, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+  function preload() {
+  }
+
+  // Current World Generation (How many iterations have elapsed for the world)
+  var generation = 0;
+  var currentWorld;
+  var nextWorld;
+  var graphics;
+
+  function create() {
+    // Set the size of the world (worldSize x worldSize)
+    currentWorld = new Array(worldSize);
+    nextWorld = new Array(worldSize);
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    graphics = game.add.graphics(0, 0);
+    for (var x = 0; x < worldSize; x++) {
+      currentWorld[x] = new Array(worldSize);
+      nextWorld[x] = new Array(worldSize);
+      for (var y = 0; y < worldSize; y++) {
+        var aliveCell = Math.random() > 0.25;
+        if (aliveCell) {
+          // draw a rectangle
+          graphics.lineStyle(2, 0x0000FF, 1);
+          graphics.beginFill(0xFFFF0B, 0.5);
+          graphics.drawRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+        currentWorld[x][y] = aliveCell;
+      }
+    }
+  }
+
+  function update() {
+    graphics.clear();
+    for (var x = 0; x < worldSize; x++) {
+      for (var y = 0; y < worldSize; y++) {
+        var numberOfNeighbours = getNeighbours(x, y);
+        if (currentWorld[x][y]) {
+          nextWorld[x][y] = numberOfNeighbours == 2 || numberOfNeighbours == 3;
+        }
+        else {
+          nextWorld[x][y] = numberOfNeighbours == 3;
+        }
+        if (currentWorld[x][y]) {
+          // draw a rectangle
+          graphics.lineStyle(2, 0x0000FF, 1);
+          graphics.beginFill(0xFFFF0B, numberOfNeighbours / 8);
+          graphics.drawRect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+      }
+    }
+    currentWorld = nextWorld.slice(0);
+  }
+
+  function getNeighbours(x, y)
+  {
+    var aliveNeighbours = 0;
+    if (x > 0 && y > 0 && (currentWorld[x - 1][y - 1])) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (y > 0 && currentWorld[x][y - 1]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (x < worldSize - 1 && y > 0 && currentWorld[x + 1][y - 1]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (x > 0 && currentWorld[x - 1][y]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (x < worldSize - 1 && currentWorld[x + 1][y]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (x > 0 && y < worldSize - 1 && currentWorld[x - 1][y + 1]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (y < worldSize - 1 && currentWorld[x][y + 1]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    if (x < worldSize - 1 && y < worldSize - 1 && currentWorld[x + 1][y + 1]) {
+      aliveNeighbours = aliveNeighbours + 1;
+    }
+    return aliveNeighbours;
+  }
+
+</script>
+</body>
+</html>
